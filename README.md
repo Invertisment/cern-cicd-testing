@@ -20,14 +20,12 @@ Some proposals for this problem:
 Have everything as for now, don't change any queries and don't create any new databases:
 
    Pros:
-
-      No rewriting of the queries
+     *No rewriting of the queries
 
    Cons:
-
-      We must use the dev database or a dedicated one
-      If we use a single database tests should check only read-only flows
-      If database breaks everything breaks
+     *We must use the dev database or a dedicated one
+     *If we use a single database tests should check only read-only flows
+     *If database breaks everything breaks
 
 Have most things as for now and try to place multiple users into the same database:
     Pros:
