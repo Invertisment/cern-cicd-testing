@@ -1,6 +1,5 @@
 CI engine
 ---------------------
-Notes:
 There are a couple of CI tools available in CERN: GitLab and Jenkins.
 Gitlab is mostly suited for small scale development and Jenkins is preferred for larger scale applications.
 As we can see in the information in [Jenkins docs](https://jenkinsdocs.web.cern.ch/) -- it should be used when Gitlab is not sufficient to fullfil the project's needs.
@@ -9,7 +8,6 @@ If we would switch to Jenkins for cmsDbBrowser that would mean to remove puppet 
 ----------------------------
 Testing database
 ----------------------------
-Notes:
 Sometimes application may write data into the cmsDbAccess and eventually to the main DB.
 We may want to isolate test runs that two overlapping runs would not break each other.
 For that we could create isolated database or use the same one.
@@ -54,7 +52,6 @@ Change queries into SQLAlchemy format:
 ----------------------------
 Testing platform
 ----------------------------
-Notes:
 Each developer must have a convenient way to develop a new test. This means that if tests are run only per commit the developer loses some of her power. If we want to preserve this we must run the tests not only per-commit but also locally when developer wants to do it.
 
 Proposals:
@@ -71,7 +68,7 @@ Run web and DB remotely, test from local machine
   * Web can be opened by anyone from CERN network -- tests are fragile and easy to break
   * Local user must have selenium (or other testing library) binary file in local device
 
-* web and DB remotely, test from local machine + encrypted SSH connection
+* Web and DB remotely, test from local machine + encrypted SSH connection
   * Pros:
   * Nobody sees our webpage and database except us
   * Unintentional test break is hard
