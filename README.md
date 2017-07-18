@@ -68,8 +68,8 @@ Run web and DB remotely, test from local machine
   * Web can be opened by anyone from CERN network -- tests are fragile and easy to break
   * Local user must have selenium (or other testing library) binary file in local device
 
-* Web and DB remotely, test from local machine + encrypted SSH connection
-  * Pros:
+Run Web and DB remotely, test from local machine + encrypted SSH connection
+* Pros:
   * Nobody sees our webpage and database except us
   * Unintentional test break is hard
   * // from upper one:
