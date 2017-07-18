@@ -1,7 +1,16 @@
+CI engine
+---------------------
+Notes:
+There are a couple of CI tools available in CERN: GitLab and Jenkins.
+Gitlab is mostly suited for small scale development and Jenkins is preferred for larger scale applications.
+As we can see in the information in [Jenkins docs](https://jenkinsdocs.web.cern.ch/) -- it should be used when Gitlab is not sufficient to fullfil the project's needs.
+If we would switch to Jenkins for cmsDbBrowser that would mean to remove puppet code of deployment. And this may not be intended by my project definition.
+
 ----------------------------
------ Testing database -----
+Testing database
 ----------------------------
 Notes:
+Sometimes application may write data into the cmsDbAccess and eventually to the main DB.
 We may want to isolate test runs that two overlapping runs would not break each other.
 For that we could create isolated database or use the same one.
 Some database queries (10 or more) use Oracle SQL directly and not SQLAlchemy library.
@@ -9,12 +18,12 @@ This means that database cannot be swapped easily and we are bound to use Oracle
 Some proposals for this problem:
 
 Have everything as for now, don't change any queries and don't create any new databases:
-    Pros:
-        No rewriting of the queries
-    Cons:
-        We must use the dev database or a dedicated one
-        If we use a single database tests should check only read-only flows
-        If database breaks everything breaks
+---    Pros:
+--- ---        No rewriting of the queries
+---    Cons:
+--- ---        We must use the dev database or a dedicated one
+--- ---        If we use a single database tests should check only read-only flows
+--- ---        If database breaks everything breaks
 
 Have most things as for now and try to place multiple users into the same database:
     Pros:
