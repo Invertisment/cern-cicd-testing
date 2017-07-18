@@ -52,7 +52,7 @@ Change queries into SQLAlchemy format:
   * Need to change configuration logic for the applications
 
 ----------------------------
------ Testing platform -----
+Testing platform
 ----------------------------
 Notes:
 Each developer must have a convenient way to develop a new test. This means that if tests are run only per commit the developer loses some of her power. If we want to preserve this we must run the tests not only per-commit but also locally when developer wants to do it.
