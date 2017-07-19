@@ -5,24 +5,41 @@ Gitlab is mostly suited for small scale development and Jenkins is preferred for
 As we can see in the information in [Jenkins docs](https://jenkinsdocs.web.cern.ch/) -- it should be used when Gitlab is not sufficient to fullfil the project's needs.
 If we would switch to Jenkins for cmsDbBrowser that would mean to remove puppet code of deployment. And this may not be intended by my project definition.
 
+TODO: Further investigation is needed for proposals between two systems.
+
+Gitlab CI
+* Pros:
+  * Integrated with GitLab -- Less time to set up and maintain
+* Cons:
+  * Only one build for project
+  * Can't use github for project source hosting
+
+Jenkins
+* Pros:
+  * Multiple builds for project
+  * Can be integrated with GitLab
+  * Highly configurable steps and workflows
+  * Suitable when user wants something specific
+* Cons:
+  * Requires more knowledge to maintain
+
 ----------------------------
 Testing database
 ----------------------------
 Sometimes application may write data into the cmsDbAccess and eventually to the main DB.
 We may want to isolate test runs that two overlapping runs would not break each other.
-For that we could create isolated database or use the same one.
+For that we could create an isolated database or use the same one.
 Some database queries (10 or more) use Oracle SQL directly and not SQLAlchemy library.
 This means that database cannot be swapped easily and we are bound to use Oracle technology.
 Some proposals for this problem:
 
 Have everything as for now, don't change any queries and don't create any new databases:
-
 * Pros:
   * No rewriting of the queries
 * Cons:
   * We must use the dev database or a dedicated one
   * If we use a single database tests should check only read-only flows
-  * If database breaks everything breaks
+  * Tests work only online
 
 Have most things as for now and try to place multiple users into the same database:
 * Pros:
@@ -31,20 +48,21 @@ Have most things as for now and try to place multiple users into the same databa
   * We must use the dev database or a dedicated one
   * Table name prefixes solution would require a small change for all SQL statements
   * Different schemas solution would require a small change for all SQL statements
-  * If we use a single database tests should check only read-only flows
-  * If database breaks everything breaks
+  * Tests work only online
+  * If there is a network outage during the test then data will persist in the database. Periodical cleaning would be a workaround.
 
-Have everything as for now and don't change any queries but create databases as we need them:
+Have most things as for now and don't change any queries but create databases as we need them:
 * Pros:
   * No rewriting of the queries
 * Cons:
-  * How much does an instance of Oracle DB cost? Hacks?
+  * TODO: How long does an instance of Oracle DB start up?
+  * TODO: Can Oracle be run locally?
   * If there are new developers, how many databases do we need?
+  * If there is a network outage during the test then data will persist in the database. Periodical cleaning would be an option.
 
 Change queries into SQLAlchemy format:
 * Pros:
-  * Any free database can be used
-  * Most of the system can work normally with sqlite
+  * Any free and lightweight database can be used (Most of the system can work normally with sqlite)
 * Cons:
   * Need to rewrite some (10 or more) of the queries for Browser and DbAccess
   * Need to change configuration logic for the applications
@@ -68,7 +86,7 @@ Run web and DB remotely, test from local machine
   * Web can be opened by anyone from CERN network -- tests are fragile and easy to break
   * Local user must have selenium (or other testing library) binary file in local device
 
-Run Web and DB remotely, test from local machine + encrypted SSH connection
+Run Web and DB remotely, test from local machine + encrypted SSH port forwarding
 * Pros:
   * Nobody sees our webpage and database except us
   * Unintentional test break is hard
@@ -80,7 +98,7 @@ Run Web and DB remotely, test from local machine + encrypted SSH connection
   * Can run in interactive and non-interactive mode
 * Cons:
   * Harder to set up on both sides
-  * Encrypted connection set up needs root for lxplus, possibly even every time a connection must be made
+  * Encrypted connection set up needs root for testing vm, possibly even every time a connection must be made
   * // from upper one:
   * Local user must have selenium (or other testing library) binary file in local device
 
