@@ -3,25 +3,23 @@ CI engine
 There are a couple of CI tools available in CERN: GitLab and Jenkins.
 Gitlab is mostly suited for small scale development and Jenkins is preferred for larger scale applications.
 As we can see in the information in [Jenkins docs](https://jenkinsdocs.web.cern.ch/) -- it should be used when Gitlab is not sufficient to fullfil the project's needs.
-If we would switch to Jenkins for cmsDbBrowser that would mean to remove puppet code of deployment. And this may not be intended by my project definition.
-
-TODO: Further investigation is needed for proposals between two systems.
 
 Gitlab CI
 * Pros:
-  * Integrated with GitLab -- Less time to set up and maintain
+  * Integrated with GitLab -- set up is very easy
 * Cons:
-  * Only one build for project
-  * Can't use github for project source hosting
+  * Only one build per project
+  * Can't use non-Gitlab for project source hosting
 
 Jenkins
 * Pros:
+  * More popular, more tutorials and information
   * Multiple builds for project
   * Can be integrated with GitLab
   * Highly configurable steps and workflows
   * Suitable when user wants something specific
 * Cons:
-  * Requires more knowledge to maintain
+  * Requires knowledge and time to maintain
 
 ----------------------------
 Testing database
@@ -143,6 +141,25 @@ Run local SLC6 instance from docker or VM
   * Harder to understand and configure the launch of the application for tests (mounting a folder to docker container)
   * Docker or VM manager are additional tools who need support
   * Docker image or VM file need to be maintained
+
+---------------------
+CD engine
+---------------------
+If we do not switch from puppet deployment script we will need to edit it.
+If we would switch to Jenkins for cmsDbBrowser that would mean to remove puppet code of deployment. And this may not be intended by my project definition.
+
+No changes
+* Pros:
+  * Less time
+* Cons:
+  * Gitlab or Jenkins will not be used to deploy the code of cmsDbBrowser
+
+Change to Jenkins or Gitlab
+* Pros:
+  * Deploy on successful tests
+* Cons:
+  * Configuration is needed
+  * Recreation of a working solution
 
 
 
