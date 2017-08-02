@@ -1,3 +1,10 @@
+Pending investigation
+---------------------
+
+* Scope of query conversion to SQLAlchemy (if self-contained DB solution will be chosen)
+* Add personal preferences to github readme (tomorrow, 03/08/2017)
+* SLC6 feasibility inside Docker on Windows (Docker + Windows + devicemapper driver)
+
 CI engine
 ---------------------
 There are a couple of CI tools available in CERN: GitLab and Jenkins.
