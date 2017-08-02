@@ -22,6 +22,32 @@ Jenkins
   * Requires knowledge and time to maintain
 
 ----------------------------
+Testing engine
+----------------------------
+Selenium alternatives:
+
+https://github.com/Blazemeter/taurus
+Built on selenium
+* Pros:
+  * improves dev experience
+* Cons:
+  * Uses YAML to create config.
+  * YAML keywords require knowledge for configuration
+
+https://www.ranorex.com/
+Built on selenium
+* Pros:
+* Cons:
+  * Paid
+  * Specifies on GUI recognition -- Too much for us, we need a simple solution first
+  * Click recording
+
+http://www.telerik.com/teststudio
+* Pros:
+* Cons:
+  * Paid
+
+----------------------------
 Testing database
 ----------------------------
 Sometimes application may write data into the cmsDbAccess and eventually to the main DB.
@@ -160,6 +186,5 @@ Change to Jenkins or Gitlab
 * Cons:
   * Configuration is needed
   * Recreation of a working solution
-
 
 
