@@ -2,8 +2,19 @@ Pending investigation
 ---------------------
 
 * Scope of query conversion to SQLAlchemy (if self-contained DB solution will be chosen)
-* Add personal preferences to github readme (tomorrow, 03/08/2017)
+  * dbLayer/querying: 2 trivial queries -- `get_record_requests, get_record_entries`
+  * `logs/dropbox_querying`: 13 queries, non trivial, requires database knowledge. `get_user_logs, get_user_search_logs, search_tag_logs ...`
+
+* Add personal preferences to github readme
+  * Would not choose single central database (Oracle) with multiple schemas because the cleanup would be harder and it is a single point of failure.
+  * Docker solution requires some investigation for Windows platform and if it works out then this would be the primary solution with self-contained database. Also this would mean longer set up time for a new developer (can be done via script).
+
 * SLC6 feasibility inside Docker on Windows (Docker + Windows + devicemapper driver)
+  * Docker for Windows requires 64bit Windows 10 Pro with Hyper-V available https://docs.docker.com/docker-for-windows/install/#download-docker-for-windows
+  * Windows 10 Home lacks some features https://docs.docker.com/docker-for-windows/faqs/#why-is-windows-10-home-not-supported
+  * Previous Windows versions (prior to 10) lack features too
+  * Some antiviruses may interfere with Docker
+  * Workaround: Any OS can be used with Vagrant or VirtualBox to run SLC6 itself or Docker inside of it.
 
 CI engine
 ---------------------
