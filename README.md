@@ -22,7 +22,7 @@ There are a couple of CI tools available in CERN: GitLab and Jenkins.
 Gitlab is mostly suited for small scale development and Jenkins is preferred for larger scale applications.
 As we can see in the information in [Jenkins docs](https://jenkinsdocs.web.cern.ch/) -- it should be used when Gitlab is not sufficient to fullfil the project's needs.
 
-Gitlab CI
+:golf:Gitlab CI
 * Pros:
   * Integrated with GitLab -- set up is very easy
 * Cons:
@@ -42,6 +42,14 @@ Jenkins
 ----------------------------
 Testing engine
 ----------------------------
+
+:golf:Use Selenium
+* Pros:
+  * We don't know the needs for testing so we may choose the technology later
+* Cons:
+  * Something could be limited
+
+
 Selenium alternatives:
 
 https://github.com/Blazemeter/taurus
@@ -102,7 +110,7 @@ Have most things as for now and don't change any queries but create databases as
   * If there are new developers, how many databases do we need?
   * If there is a network outage during the test then data will persist in the database. Periodical cleaning would be an option.
 
-Change queries into SQLAlchemy format:
+:golf:Change queries into SQLAlchemy format:
 * Pros:
   * Any free and lightweight database can be used (Most of the system can work normally with sqlite)
 * Cons:
@@ -144,7 +152,7 @@ Run Web and DB remotely, test from local machine + encrypted SSH port forwarding
   * // from upper one:
   * Local user must have selenium (or other testing library) binary file in local device
 
-Run directly on openstack SLC6 without exposing any ports
+:golf:Run directly on openstack SLC6 without exposing any ports
 * Pros:
   * No additional local libraries
   * Can run only remotely
@@ -172,7 +180,7 @@ Force the user to use SLC6 on his computer
 * Cons:
   * Environment set up takes longer for each developer
 
-Run local SLC6 instance from docker or VM
+:golf:Run local SLC6 instance from docker or VM
 * Pros:
   * Can run in interactive and non-interactive mode
   * Same environment as on VM/Prod
@@ -192,11 +200,12 @@ CD engine
 If we do not switch from puppet deployment script we will need to edit it.
 If we would switch to Jenkins for cmsDbBrowser that would mean to remove puppet code of deployment. And this may not be intended by my project definition.
 
-No changes
+:golf:No (or as little as possible) changes
 * Pros:
-  * Less time
+  * Less time to config
 * Cons:
   * Gitlab or Jenkins will not be used to deploy the code of cmsDbBrowser
+  * Puppet will get dirty and fat in the long term
 
 Change to Jenkins or Gitlab
 * Pros:
@@ -205,4 +214,26 @@ Change to Jenkins or Gitlab
   * Configuration is needed
   * Recreation of a working solution
 
+---------------------
+Database migration
+---------------------
+When new database changes occur inevitably we will have to migrate the testing database to the new layout
+
+Recompile DB binary on schema change (Even on adding new tables)
+* Pros:
+  * No time setting up the test data
+  * Only production queries and models have to be updated
+  * Retaining of old test data must be done using SQL (oracle or sqlite) statements and may become too hard to update
+* Cons:
+  * When schema and code changes we have to update the binary of the database (or multiple DBs)
+
+:golf:Create a new DB before each test (DB creation works right now using SQLAlchemy)
+* Pros:
+  * Easier to maintain in the long term
+  * Only code (models + queries) have to be changed to make E2E tests work again
+  * It is more durable when changes arise.
+  * Creation queries must be written
+* Cons:
+  * Requires more time (or reuse of the same insertion scripts) while creating the tests from the beginning
+  * Tests contain a helper that has some insertion queries
 
