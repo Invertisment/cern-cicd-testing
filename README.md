@@ -1,4 +1,4 @@
-Pending investigation
+Investigation
 ---------------------
 
 * Scope of query conversion to SQLAlchemy (if self-contained DB solution will be chosen)
@@ -152,7 +152,7 @@ Run Web and DB remotely, test from local machine + encrypted SSH port forwarding
   * // from upper one:
   * Local user must have selenium (or other testing library) binary file in local device
 
-:golf:Run directly on openstack SLC6 without exposing any ports
+Run directly on openstack SLC6 without exposing any ports
 * Pros:
   * No additional local libraries
   * Can run only remotely
@@ -180,17 +180,13 @@ Force the user to use SLC6 on his computer
 * Cons:
   * Environment set up takes longer for each developer
 
-:golf:Run local SLC6 instance from docker or VM
+:golf:Run SLC6 instance from docker or VM
 * Pros:
-  * Can run in interactive and non-interactive mode
+  * Can be run CI server and on VM
   * Same environment as on VM/Prod
-  * Development can happen without internet
   * Less time to set up (everything is preset)
-  * Everything is self-contained even when running locally
-  * No significant impact on start up time: at most docker takes additional 1 second to start up. VM takes longer.
+  * Everything is self-contained
 * Cons:
-  * Should be run remotely in the same way as locally (to minimize the complexity)
-  * Harder to understand and configure the launch of the application for tests (mounting a folder to docker container)
   * Docker or VM manager are additional tools who need support
   * Docker image or VM file need to be maintained
 
