@@ -233,3 +233,27 @@ Recompile DB binary on schema change (Even on adding new tables)
   * Requires more time (or reuse of the same insertion scripts) while creating the tests from the beginning
   * Tests contain a helper that has some insertion queries
 
+
+---------------------
+Docker image preparation
+---------------------
+
+### Outer OS
+* Passwordless pull (todo: move from running container)
+* pull cmsDbAccess (todo: move from running container)
+
+### Docker image:
+* various deps
+* env from cvmfs (todo: move from runtime)
+* configure script removal from $PATH (todo: move from runtime)
+* venv creation (todo: move from runtime)
+
+### Run bindings:
+* mount cvmfs
+* mount pulled repos (cmsDbAccess, cmsDbBrowser)
+
+### Running container:
+* pip install (requires sudo with no pw)
+* run.py
+* run tests (todo)
+
