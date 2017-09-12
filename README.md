@@ -238,22 +238,43 @@ Recompile DB binary on schema change (Even on adding new tables)
 Docker image preparation
 ---------------------
 
-### Outer OS
-* Passwordless pull (todo: move from running container)
-* pull cmsDbAccess (todo: move from running container)
+### browser Gitlab yaml file
+* +clone cmsDbAccess to a folder (run.py running should be reflective?)
+
+### Outer
+* +should have docker-container repo downloaded and certificate decrypted
+* +Passwordless pull (todo: move from running container)
+* +cvmfs (does not automount on the container)
+* +gitlab-runner runner setup
 
 ### Docker image:
-* various deps
-* env from cvmfs (todo: move from runtime)
-* configure script removal from $PATH (todo: move from runtime)
-* venv creation (todo: move from runtime)
+* +yum: various deps
 
 ### Run bindings:
-* mount cvmfs
-* mount pulled repos (cmsDbAccess, cmsDbBrowser)
+* +mount pulled repos (cmsDbAccess, cmsDbBrowser)
+* +mount cvmfs
+* +expose port for outer container for manual verification
 
-### Running container:
-* pip install (requires sudo with no pw)
-* run.py
-* run tests (todo)
+### Inner:
+* +env from cvmfs (cvmfs only available at runtime because automount is not available inside of a docker image)
+* +configure script removal from $PATH
+* +venv creation
+* +pip install
+* +run.py
+* run.py for cmsDbAccess
+* +run tests
+
+### Outer cleanup
+* +remove /data/services
+
+### Finalize the project
+* Write simple selenium tests with mocked DB
+* Remove hacks from browser's configs
+* Run unit tests 'locally' on vm
+* Remove dead certificates from repos
+* Write docs for auto testing
+* Write docs for 'local' testing
+* Rename docker container in scripts
+* Push docker image to docker registry
+* Move all testing repositories to official cms project area
 
