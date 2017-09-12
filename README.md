@@ -268,6 +268,7 @@ Docker image preparation
 * +remove /data/services
 
 ### Finalize the project
+* Create databases from the script
 * Write simple selenium tests with mocked DB
 * Remove hacks from browser's configs
 * Run unit tests 'locally' on vm
