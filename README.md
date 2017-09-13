@@ -279,3 +279,9 @@ Docker image preparation
 * Push docker image to docker registry
 * Move all testing repositories to official cms project area
 
+### Multiple repos
+Cloning cmsDbAccess at build time requires ssh certificate for the repository.
+Somethimes builds may hang because developer may do mistakes. This requires to stop docker containers.
+To stop the containers user needs to interact with the runner and currently only login is the possible way.
+This means that is user will login to the runner he will have the possibility to take the passwordless certificates of gitlab.
+This is a security issue.
