@@ -285,3 +285,30 @@ Somethimes builds may hang because developer may do mistakes. This requires to s
 To stop the containers user needs to interact with the runner and currently only login is the possible way.
 This means that is user will login to the runner he will have the possibility to take the passwordless certificates of gitlab.
 This is a security issue.
+
+### Launching locally (for linux)
+* TODO: test this workflow
+* Performs really slow with sshfs cvmfs
+For windows use linux from VM
+* Get new docker (not supported for slc6)
+* Get cvmfs locally (with sshfs or install into your machine from here: https://cvmfs.readthedocs.io/en/stable/cpt-quickstart.html)
+* Get docker-container repository (https://gitlab.cern.ch/mmaciule/docker-container)
+* build the container using `./build-container.sh`
+* run the container with `source run-container.sh services_dir cvmfs_dir`
+* run `source setup.sh && source prepare-for-e2e.sh` from the container
+* Go to `/data/services/cmsDbBrowser` and launch browser with `run.py`
+* Port 8111 should already be open from the container so check if your firewall permits to bind your local 8111 port
+
+### Launching in local-dev + remote-run mode
+* remote machine
+  * set testing env variable
+  * launch browser
+
+* local machine
+  * mount remote browser sources via ssh
+  * mount remote db dir
+  * create local venv
+  * pip install
+  * point e2e test suite to use remote url
+  * point e2e test suite to use remote db
+

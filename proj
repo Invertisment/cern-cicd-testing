@@ -1,0 +1,102 @@
+Situation:
+Gitlab used for code hosting
+manual testing, no automatic tests (what about Sverre?)
+only 1.5 developer
+Puppet checks out code in all envs
+Puppet runs keeper.py
+Keeper runs run.sh in DB_browser
+Uses merge requests from different people and approves them to main repo from forks
+
+Info about workflows:
+DB browser code
+DB access code
+Keeper code?
+Keeper workflow
+ask Giovanni -- what is keeper and other manuals
+
+Wishlist:
+Custom solution is acceptable
+Run all tests locally
+Run all tests remotely
+Good manual for new people
+
+Thoughts:
+Separate test service -- is it bad idea?
+Run tests with keeper?
+Run tests manually after deploying the code with puppet
+Web based log viewer? show failed status?
+
+-----
+
+Day2:
+? What command gets executed in the cronjob?
+K Where is the puppet script hosted? Read rights
+
+Easy: Where to put the test suites? test_smth.py or test dir?
+Test separation: Unit+Integration+E2E (^^)
+How general should be the sulution?
+Should tests be run on commit?
+Should tests be run on test vm and not on dev/prod/int?
+  Puppet script does not include: cond_dbupload cond_dbacc cond_dbbrowser cond_dbpclo2o cond_dbcondupload:
+    /home/martin/Documents/dev/cern/it-puppet-hostgroup-vocmsdb-master/test.pp
+    /home/martin/Documents/dev/cern/it-puppet-hostgroup-vocmsdb-master/dev.pp
+
+Proposals:
+#1
+    Add code to any env, then use it as test-env for tests. (Puppet/WebServices solution)
+    Delete test files from the project after running (test_*.py).
+    Pros:
+        Easier and faster to implement than other solutions
+        All of the current tools stay the same except deploy command runs the tests.
+    Cons:
+        It is a custom hack and is not a standard solution
+        Not known if tests succeeded on the test env. Preview tool is needed. Could be just a plain log viewer.
+        Test code is in prod with the normal webpage code. This must not happen because developer could call test code and break something.
+
+#2
+    Run test suite on each git commit
+    When tests finish mark the commit green (gitlab does this)
+    Pros:
+        Better visibility for developer and future colleagues
+        Standard (gitlab) solution
+    Cons:
+        Build server is needed.
+    TODO:
+        Do we have a build server?
+        Can gitlab access the build runner?
+
+Selenium alternatives:
+- https://github.com/Blazemeter/taurus
+    Built on selenium
+    improves dev experience
+
+- https://www.ranorex.com/
+    Non free
+    Build on selenium
+    GUI recognition -- not usable if UI changes
+    Click recording
+
+- http://www.telerik.com/teststudio
+    Non free
+
+prepare docker image:
+  .download SLC6 image
+  .install python and its friends into SLC6
+  .open port for DbBrowser
+  .prepare sqlite server and DbAccess client (with test data)
+
+local PoC:
+  install docker
+  install a prepared image into docker
+  create symlinks from docker image to local workspace (config?)
+  start the application inside docker
+  Run some simple selenium
+
+remote PoC:
+  install docker
+  install a prepared image into docker
+  checkout the code (Browser, Access client)
+  create symlinks from docker image to local workspace (config?)
+  start the application inside docker
+  Run some simple selenium
+
